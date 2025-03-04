@@ -179,11 +179,23 @@
 
 <main class="main">
   <div class="content">
+
     <div class="chat-container">
       <h1>Live Chat</h1>
+
       <div class="messages">
-        <div *ngFor="let msg of messages">{{ msg }}</div>
+        <div *ngFor="let msg of messages" class="message">
+          <strong>{{ msg.sender }}</strong>: {{ msg.content}} ({{ msg.timestamp }})
+          <button (click)="replyToMessage(msg.id)">Reply</button>
+
+          <div class="replies">
+            <div *ngFor="let reply of getReplies(msg.id)" class="reply">
+              <strong>{{ reply.sender }}</strong>: {{ reply.content }} ({{ reply.timestamp }})
+            </div>
+          </div>
+        </div>
       </div>
+
       <input [(ngModel)]="messageInput" placeholder="Type a message..." />
       <button (click)="sendMessage()">Send</button>
     </div>
